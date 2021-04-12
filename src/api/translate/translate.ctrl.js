@@ -3,9 +3,13 @@ const qs = require('querystring');
 const processFile = require('../../util/processFile');
 
 exports.translate = async(ctx) => {
+    //PDF 파일을 폴더에서 가져옴, 추후에 해당 내용을 수정하여 유저가 직접 PDF 파일을 업로드 할 수 있도록 변경 예정
+    const fileList = await processFile.getFileList('data');
+    const file = './data/'.concat(fileList[1]);
+
     const source = 'en';
     const target = 'ko';
-    const { file, result } = await processFile.makeText();
+    const { title, result } = await processFile.makeText(file);
 
     const file_array = new Array();
     for (const text of result) {
@@ -14,7 +18,8 @@ exports.translate = async(ctx) => {
     }
 
     await processFile.makePdf({ 
-        file, file_array 
+        title, 
+        file_array 
     });
 
     ctx.status = 200;
