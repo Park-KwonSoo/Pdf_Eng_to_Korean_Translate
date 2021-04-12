@@ -5,7 +5,7 @@ const processFile = require('../../util/processFile');
 exports.translate = async(ctx) => {
     //PDF 파일을 폴더에서 가져옴, 추후에 해당 내용을 수정하여 유저가 직접 PDF 파일을 업로드 할 수 있도록 변경 예정
     const fileList = await processFile.getFileList('data');
-    const file = './data/'.concat(fileList[1]);
+    const file = './data/'.concat(fileList[0]);
 
     const source = 'en';
     const target = 'ko';
@@ -25,7 +25,7 @@ exports.translate = async(ctx) => {
     ctx.status = 200;
 }
 
-const translate_Papago = async(source, target, text) => {
+const translate_Papago = async (source, target, text) => {
     const url = "https://openapi.naver.com/v1/papago/n2mt";
     const { CLIENT_ID, CLIENT_SECRET } = process.env;
 
@@ -41,6 +41,13 @@ const translate_Papago = async(source, target, text) => {
             'X-Naver-Client-Secret': CLIENT_SECRET
         }
     };
+
+    // const result = axios.post(url, params, options)
+    //     .then(response => {
+    //         return response.data.message.result.translatedText;
+    //     }, error => {
+    //         console.log(error);
+    //     });
 
     const result = await axios.post(url, params, options);
 

@@ -26,7 +26,7 @@ exports.makePdf = ({ title, file_array }) => {
     const { FONT } = process.env;
     const Font = './src/data/font/'.concat(FONT);
 
-    //pdf파일을 만들고, 쓰기 모드로 변경
+    //pdf파일을 만들고, 쓰기 모드의 파일 스트림과 연결
     doc.pipe(fs.createWriteStream('./output/' + 'translated_' + title));
     
     for(const text of file_array) {
