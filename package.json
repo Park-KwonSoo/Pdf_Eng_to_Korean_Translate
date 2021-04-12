@@ -1,0 +1,24 @@
+{
+  "name": "pdf_eng_to_korean_translate",
+  "version": "1.0.0",
+  "description": "for English to Korean : using Papago API & pdf parser",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Park-KwonSoo/Pdf_Eng_to_Korean_Translate.git"
+  },
+  "author": "Park-Kwonsoo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Park-KwonSoo/Pdf_Eng_to_Korean_Translate/issues"
+  },
+  "homepage": "https://github.com/Park-KwonSoo/Pdf_Eng_to_Korean_Translate#readme",
+  "dependencies": {
+    "pdf-parse": "^1.1.1",
+    "pdfkit": "^0.12.1"
+  }
+}
