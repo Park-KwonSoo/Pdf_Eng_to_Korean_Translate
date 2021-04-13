@@ -1,25 +1,23 @@
 const axios = require('axios');
 const qs = require('querystring');
-const processFile = require('../../util/processFile');
+const Process = require('../../lib/ProcessPdf');
 
 exports.translate = async(ctx) => {
-    //PDF 파일을 폴더에서 가져옴, 추후에 해당 내용을 수정하여 유저가 직접 PDF 파일을 업로드 할 수 있도록 변경 예정
-    const fileList = await processFile.getFileList('data');
-    const file = './data/'.concat(fileList[0]);
 
     const source = 'en';
     const target = 'ko';
-    const { title, result } = await processFile.makeText(file);
+    const { title, result } = await Process.makeTextList('./data/Computer Architecture_02_210304.pdf');
 
-    const file_array = new Array();
+    const textList = new Array();
+    
     for (const text of result) {
-        const translated = await translate_Papago(source, target, text);
-        file_array.push(translated);
+        const translated = await translate_Papago(source, target, text.text);
+        textList.push(translated);
     }
 
-    await processFile.makePdf({ 
+    await Process.writePdfFile({ 
         title, 
-        file_array 
+        textList
     });
 
     ctx.status = 200;
@@ -41,13 +39,6 @@ const translate_Papago = async (source, target, text) => {
             'X-Naver-Client-Secret': CLIENT_SECRET
         }
     };
-
-    // const result = axios.post(url, params, options)
-    //     .then(response => {
-    //         return response.data.message.result.translatedText;
-    //     }, error => {
-    //         console.log(error);
-    //     });
 
     const result = await axios.post(url, params, options);
 
