@@ -42,7 +42,7 @@ exports.writePdfFile = ({ title, textList }) => {
 
 //pdf file을 받아서 file의 모든 정보를 저장한 array를 가져옴
 const decodePdfFile = (file) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const undecodeArray = []
         new PdfReader().parseFileItems(file, (err, item) => {
             if(item)    undecodeArray.push(item);
@@ -53,7 +53,7 @@ const decodePdfFile = (file) => {
 
 //모든 정보가 저장되어 있는 array의 page가 들어있는 index만을 추출
 const getPageIndex = (undecodeArray) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const pageList = undecodeArray.filter((item) => {
             return (item.page !== undefined)
         })
@@ -69,7 +69,7 @@ const getPageIndex = (undecodeArray) => {
 }
 
 const incodeText = (indexInfo, undecodeArray) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         let i, j;
         const result = [];
         const index_len = indexInfo.length;

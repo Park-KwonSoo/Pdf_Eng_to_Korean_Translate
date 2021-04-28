@@ -4,9 +4,11 @@ const Process = require('../../lib/ProcessPdf');
 
 exports.translate = async(ctx) => {
 
+    const { file } = ctx.request.body;
+
     const source = 'en';
     const target = 'ko';
-    const { title, result } = await Process.makeTextList('./data/Computer Architecture_02_210304.pdf');
+    const { title, result } = await Process.makeTextList('./data/' + file);
 
     const textList = new Array();
     
@@ -21,6 +23,7 @@ exports.translate = async(ctx) => {
     });
 
     ctx.status = 200;
+    console.log("Done!");
 }
 
 const translate_Papago = async (source, target, text) => {
